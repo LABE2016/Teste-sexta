@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jogadores - FutAmador</title>
+<title>Próximos Jogos - FutAmador</title>
 <script src="https://cdn.tailwindcss.com/3.4.16"></script>
 <script>tailwind.config={theme:{extend:{colors:{primary:'#1E88E5',secondary:'#FFA000'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -22,27 +22,26 @@ background: linear-gradient(135deg, #1E88E5 0%, #1565C0 100%);
 .card-shadow {
 box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
-.player-rating {
-width: 28px;
-height: 28px;
-border-radius: 50%;
-display: flex;
-align-items: center;
-justify-content: center;
-font-weight: 700;
-font-size: 12px;
+.date-divider {
+position: relative;
+text-align: center;
+margin: 16px 0;
 }
-.rating-high {
-background-color: #4CAF50;
-color: white;
+.date-divider::before {
+content: "";
+position: absolute;
+top: 50%;
+left: 0;
+right: 0;
+height: 1px;
+background-color: #e5e7eb;
+z-index: 0;
 }
-.rating-medium {
-background-color: #FFC107;
-color: #333;
-}
-.rating-low {
-background-color: #F44336;
-color: white;
+.date-divider span {
+position: relative;
+background-color: #f9fafb;
+padding: 0 12px;
+z-index: 1;
 }
 </style>
 </head>
@@ -50,392 +49,931 @@ color: white;
 <!-- Nav Bar -->
 <nav class="gradient-bg fixed w-full top-0 z-50 text-white shadow-md">
 <div class="flex items-center justify-between px-4 py-3">
+<div class="flex items-center">
 <a href="https://readdy.ai/home/71ead73c-4549-4989-b0a8-39af82fc54b4/7f50c3d0-2476-4f06-b516-5ec917e91888" data-readdy="true" class="w-8 h-8 flex items-center justify-center cursor-pointer">
 <i class="ri-arrow-left-line ri-lg"></i>
 </a>
-<h1 class="text-lg font-semibold">Jogadores</h1>
+<span class="font-semibold ml-3">Próximos Jogos</span>
+</div>
+<div class="flex items-center space-x-2">
+<div class="w-8 h-8 flex items-center justify-center cursor-pointer">
+<i class="ri-search-line ri-lg"></i>
+</div>
 <div class="w-8 h-8 flex items-center justify-center cursor-pointer">
 <i class="ri-filter-3-line ri-lg"></i>
+</div>
 </div>
 </div>
 </nav>
 <!-- Main Content -->
 <main class="pt-16 pb-16">
-<!-- Search Section -->
-<div class="px-4 py-3">
-<div class="relative">
-<input type="text" placeholder="Buscar jogadores..." class="w-full bg-white py-2.5 pl-10 pr-4 rounded-full shadow-sm border-none !rounded-button">
-<div class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 flex items-center justify-center text-gray-400">
-<i class="ri-search-line"></i>
-</div>
-</div>
-</div>
-<!-- Filter Options -->
-<div class="px-4 py-2">
-<!-- Position Filter -->
-<div class="overflow-x-auto pb-2">
+<!-- Filtros -->
+<section class="px-4 py-3 bg-white shadow-sm">
+<div class="mb-3">
+<h3 class="text-sm font-medium text-gray-700 mb-2">Liga</h3>
 <div class="flex space-x-2">
-<button class="bg-primary text-white px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap !rounded-button">Todos</button>
-<button class="bg-white text-gray-700 px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap !rounded-button">Atacantes</button>
-<button class="bg-white text-gray-700 px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap !rounded-button">Meio-campistas</button>
-<button class="bg-white text-gray-700 px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap !rounded-button">Defensores</button>
-<button class="bg-white text-gray-700 px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap !rounded-button">Goleiros</button>
+<button class="px-3 py-1 bg-primary text-white text-xs font-medium rounded-full !rounded-button">Liga Ouro</button>
+<button class="px-3 py-1 bg-gray-100 text-gray-600 text-xs font-medium rounded-full !rounded-button">Liga Prata</button>
 </div>
 </div>
-<!-- Team Filter -->
-<div class="overflow-x-auto py-2">
-<div class="flex space-x-3">
-<button class="bg-primary text-white px-3 py-1.5 rounded-full text-xs font-medium flex items-center whitespace-nowrap !rounded-button">
-<span>Todos os times</span>
+<div>
+<h3 class="text-sm font-medium text-gray-700 mb-2">Times</h3>
+<div class="flex overflow-x-auto pb-2 hide-scrollbar">
+<div class="flex space-x-2">
+<button class="px-3 py-1 bg-primary text-white text-xs font-medium rounded-full whitespace-nowrap !rounded-button">Todos</button>
+<button class="px-3 py-1 bg-gray-100 text-gray-600 text-xs font-medium rounded-full whitespace-nowrap !rounded-button flex items-center">
+<div class="w-4 h-4 mr-1 rounded-full overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=soccer%2520team%2520logo%252C%2520shield%2520design%252C%2520red%2520and%2520black%2520colors%252C%2520minimalist%252C%2520professional%252C%2520isolated%2520on%2520white%2520background&width=50&height=50&seq=2&orientation=squarish" alt="Estrela FC" class="w-full h-full object-cover">
+</div>
+Estrela FC
 </button>
-<button class="bg-white text-gray-700 px-3 py-1.5 rounded-full text-xs font-medium flex items-center whitespace-nowrap !rounded-button">
-<div class="w-5 h-5 bg-gray-100 rounded-full overflow-hidden mr-1.5">
-<img src="https://readdy.ai/api/search-image?query=soccer%2520team%2520logo%252C%2520shield%2520design%252C%2520green%2520and%2520yellow%2520colors%252C%2520minimalist%252C%2520professional%252C%2520isolated%2520on%2520white%2520background&width=50&height=50&seq=12&orientation=squarish" alt="Palmeiras FC" class="w-full h-full object-cover">
+<button class="px-3 py-1 bg-gray-100 text-gray-600 text-xs font-medium rounded-full whitespace-nowrap !rounded-button flex items-center">
+<div class="w-4 h-4 mr-1 rounded-full overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=soccer%2520team%2520logo%252C%2520shield%2520design%252C%2520blue%2520and%2520white%2520colors%252C%2520minimalist%252C%2520professional%252C%2520isolated%2520on%2520white%2520background&width=50&height=50&seq=3&orientation=squarish" alt="Cruzeiro EC" class="w-full h-full object-cover">
 </div>
-<span>Palmeiras FC</span>
+Cruzeiro EC
 </button>
-<button class="bg-white text-gray-700 px-3 py-1.5 rounded-full text-xs font-medium flex items-center whitespace-nowrap !rounded-button">
-<div class="w-5 h-5 bg-gray-100 rounded-full overflow-hidden mr-1.5">
-<img src="https://readdy.ai/api/search-image?query=soccer%2520team%2520logo%252C%2520shield%2520design%252C%2520blue%2520and%2520white%2520colors%252C%2520minimalist%252C%2520professional%252C%2520isolated%2520on%2520white%2520background&width=50&height=50&seq=13&orientation=squarish" alt="Cruzeiro EC" class="w-full h-full object-cover">
+<button class="px-3 py-1 bg-gray-100 text-gray-600 text-xs font-medium rounded-full whitespace-nowrap !rounded-button flex items-center">
+<div class="w-4 h-4 mr-1 rounded-full overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=soccer%2520team%2520logo%252C%2520shield%2520design%252C%2520green%2520and%2520yellow%2520colors%252C%2520minimalist%252C%2520professional%252C%2520isolated%2520on%2520white%2520background&width=50&height=50&seq=4&orientation=squarish" alt="Palmeiras FC" class="w-full h-full object-cover">
 </div>
-<span>Cruzeiro EC</span>
+Palmeiras FC
 </button>
-<button class="bg-white text-gray-700 px-3 py-1.5 rounded-full text-xs font-medium flex items-center whitespace-nowrap !rounded-button">
-<div class="w-5 h-5 bg-gray-100 rounded-full overflow-hidden mr-1.5">
-<img src="https://readdy.ai/api/search-image?query=soccer%2520team%2520logo%252C%2520shield%2520design%252C%2520red%2520and%2520black%2520colors%252C%2520minimalist%252C%2520professional%252C%2520isolated%2520on%2520white%2520background&width=50&height=50&seq=14&orientation=squarish" alt="Estrela FC" class="w-full h-full object-cover">
+<button class="px-3 py-1 bg-gray-100 text-gray-600 text-xs font-medium rounded-full whitespace-nowrap !rounded-button flex items-center">
+<div class="w-4 h-4 mr-1 rounded-full overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=soccer%2520team%2520logo%252C%2520shield%2520design%252C%2520purple%2520and%2520white%2520colors%252C%2520minimalist%252C%2520professional%252C%2520isolated%2520on%2520white%2520background&width=50&height=50&seq=5&orientation=squarish" alt="Real SP" class="w-full h-full object-cover">
 </div>
-<span>Estrela FC</span>
+Real SP
+</button>
+<button class="px-3 py-1 bg-gray-100 text-gray-600 text-xs font-medium rounded-full whitespace-nowrap !rounded-button flex items-center">
+<div class="w-4 h-4 mr-1 rounded-full overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=soccer%2520team%2520logo%252C%2520shield%2520design%252C%2520orange%2520and%2520black%2520colors%252C%2520minimalist%252C%2520professional%252C%2520isolated%2520on%2520white%2520background&width=50&height=50&seq=6&orientation=squarish" alt="Tigres FC" class="w-full h-full object-cover">
+</div>
+Tigres FC
 </button>
 </div>
 </div>
 </div>
-<!-- Players List -->
-<div class="px-4 py-2 space-y-3">
-<!-- Jogador 1 -->
-<div class="bg-white rounded card-shadow p-3 relative cursor-pointer">
-<div class="player-rating rating-high absolute top-3 right-3">8.7</div>
+</section>
+<!-- Lista de Jogos -->
+<section class="px-4 py-4">
+<!-- Hoje -->
+<div class="date-divider">
+<span class="text-xs font-medium bg-gray-50 text-gray-600">Hoje • 06/06/2025</span>
+</div>
+<!-- Jogo 1 -->
+<div class="bg-white rounded card-shadow mb-3">
+<div class="p-3">
+<div class="flex justify-between items-center mb-3">
+<span class="text-xs font-medium text-primary">Liga Ouro • Rodada 3</span>
+<span class="text-xs text-gray-500">19:30</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex flex-col items-center w-2/5">
+<div class="w-12 h-12 bg-gray-100 rounded-full overflow-hidden mb-2">
+<img src="https://readdy.ai/api/search-image?query=soccer%2520team%2520logo%252C%2520shield%2520design%252C%2520red%2520and%2520black%2520colors%252C%2520minimalist%252C%2520professional%252C%2520isolated%2520on%2520white%2520background&width=80&height=80&seq=2&orientation=squarish" alt="Estrela FC" class="w-full h-full object-cover">
+</div>
+<span class="text-sm font-medium text-center">Estrela FC</span>
+</div>
+<div class="text-center">
+<span class="text-lg font-bold">VS</span>
+<div class="text-xs text-gray-500 mt-1">Campo Municipal</div>
+</div>
+<div class="flex flex-col items-center w-2/5">
+<div class="w-12 h-12 bg-gray-100 rounded-full overflow-hidden mb-2">
+<img src="https://readdy.ai/api/search-image?query=soccer%2520team%2520logo%252C%2520shield%2520design%252C%2520blue%2520and%2520white%2520colors%252C%2520minimalist%252C%2520professional%252C%2520isolated%2520on%2520white%2520background&width=80&height=80&seq=3&orientation=squarish" alt="Cruzeiro EC" class="w-full h-full object-cover">
+</div>
+<span class="text-sm font-medium text-center">Cruzeiro EC</span>
+</div>
+</div>
+<div class="mt-3 flex justify-center">
+<button class="text-xs text-primary font-medium flex items-center cursor-pointer toggle-details" data-target="details-1">
+Ver detalhes
+<i class="ri-arrow-down-s-line ml-1"></i>
+</button>
+</div>
+</div>
+<!-- Detalhes do Jogo (Inicialmente oculto) -->
+<div id="details-1" class="hidden border-t border-gray-100 p-3">
+<div class="grid grid-cols-2 gap-4">
+<div>
+<h4 class="text-xs font-semibold text-gray-700 mb-2">Escalação Provável</h4>
+<div class="text-xs text-gray-600 space-y-1">
+<p>GOL: Marcos Silva</p>
+<p>DEF: Carlos, João, Pedro, Lucas</p>
+<p>MEI: Rafael, Gustavo, Henrique</p>
+<p>ATA: Bruno, Rodrigo, Felipe</p>
+</div>
+</div>
+<div>
+<h4 class="text-xs font-semibold text-gray-700 mb-2">Escalação Provável</h4>
+<div class="text-xs text-gray-600 space-y-1">
+<p>GOL: André Luiz</p>
+<p>DEF: Matheus, Vitor, Diego, Thiago</p>
+<p>MEI: Leandro, Gabriel, Renato</p>
+<p>ATA: Alexandre, Leonardo, Roberto</p>
+</div>
+</div>
+</div>
+<div class="mt-3">
+<h4 class="text-xs font-semibold text-gray-700 mb-2">Histórico de Confrontos</h4>
+<div class="space-y-2">
+<div class="flex justify-between text-xs">
+<span>12/05/2025</span>
+<div class="flex-1 text-center">Cruzeiro EC 2 x 1 Estrela FC</div>
+<span class="text-gray-500">Liga Ouro</span>
+</div>
+<div class="flex justify-between text-xs">
+<span>03/03/2025</span>
+<div class="flex-1 text-center">Estrela FC 0 x 0 Cruzeiro EC</div>
+<span class="text-gray-500">Copa Regional</span>
+</div>
+<div class="flex justify-between text-xs">
+<span>15/11/2024</span>
+<div class="flex-1 text-center">Estrela FC 3 x 1 Cruzeiro EC</div>
+<span class="text-gray-500">Liga Ouro</span>
+</div>
+</div>
+</div>
+<div class="mt-3">
+<h4 class="text-xs font-semibold text-gray-700 mb-2">Informações Adicionais</h4>
+<div class="grid grid-cols-2 gap-2 text-xs text-gray-600">
 <div class="flex items-center">
-<div class="w-16 h-16 bg-gray-100 rounded-full overflow-hidden mr-3 border-2 border-primary">
-<img src="https://readdy.ai/api/search-image?query=portrait%2520of%2520a%2520professional%2520soccer%2520player%252C%2520male%252C%2520Brazilian%252C%2520athletic%2520build%252C%2520serious%2520expression%252C%2520soccer%2520jersey%252C%2520professional%2520sports%2520photography%252C%2520studio%2520lighting%252C%2520high%2520quality%252C%2520detailed&width=150&height=150&seq=101&orientation=squarish" alt="Rafael Oliveira" class="w-full h-full object-cover object-top">
+<div class="w-4 h-4 flex items-center justify-center mr-1">
+<i class="ri-user-line"></i>
 </div>
-<div class="flex-1">
+<span>Árbitro: Ricardo Oliveira</span>
+</div>
 <div class="flex items-center">
-<h3 class="font-semibold">Rafael Oliveira</h3>
-<span class="text-sm text-gray-500 ml-2">• 24 anos</span>
+<div class="w-4 h-4 flex items-center justify-center mr-1">
+<i class="ri-cloudy-line"></i>
 </div>
-<p class="text-sm text-primary font-medium">Atacante</p>
-<div class="flex items-center mt-1">
-<div class="w-4 h-4 bg-gray-100 rounded-full overflow-hidden mr-1.5">
-<img src="https://readdy.ai/api/search-image?query=soccer%2520team%2520logo%252C%2520shield%2520design%252C%2520red%2520and%2520black%2520colors%252C%2520minimalist%252C%2520professional%252C%2520isolated%2520on%2520white%2520background&width=50&height=50&seq=14&orientation=squarish" alt="Estrela FC" class="w-full h-full object-cover">
+<span>Clima: 22°C, Parcialmente nublado</span>
 </div>
-<span class="text-xs text-gray-600">Estrela FC</span>
-</div>
-<div class="flex mt-2 items-center">
-<div class="flex items-center text-xs text-gray-600 mr-3">
-<div class="w-4 h-4 flex items-center justify-center mr-1 text-primary">
-<i class="ri-football-fill"></i>
-</div>
-<span>12 gols</span>
-</div>
-<div class="flex items-center text-xs text-gray-600 mr-3">
-<div class="w-4 h-4 flex items-center justify-center mr-1 text-primary">
-<i class="ri-award-fill"></i>
-</div>
-<span>5 assistências</span>
-</div>
-<div class="flex items-center text-xs text-gray-600">
-<div class="w-4 h-4 flex items-center justify-center mr-1 text-primary">
-<i class="ri-timer-fill"></i>
-</div>
-<span>1.250 min</span>
-</div>
-</div>
-</div>
-</div>
-</div>
-<!-- Jogador 2 -->
-<div class="bg-white rounded card-shadow p-3 relative cursor-pointer">
-<div class="player-rating rating-high absolute top-3 right-3">8.2</div>
 <div class="flex items-center">
-<div class="w-16 h-16 bg-gray-100 rounded-full overflow-hidden mr-3 border-2 border-primary">
-<img src="https://readdy.ai/api/search-image?query=portrait%2520of%2520a%2520professional%2520soccer%2520player%252C%2520male%252C%2520Brazilian%252C%2520athletic%2520build%252C%2520confident%2520expression%252C%2520soccer%2520jersey%252C%2520professional%2520sports%2520photography%252C%2520studio%2520lighting%252C%2520high%2520quality%252C%2520detailed&width=150&height=150&seq=102&orientation=squarish" alt="Lucas Santos" class="w-full h-full object-cover object-top">
+<div class="w-4 h-4 flex items-center justify-center mr-1">
+<i class="ri-ticket-line"></i>
 </div>
-<div class="flex-1">
+<span>Entrada gratuita</span>
+</div>
 <div class="flex items-center">
-<h3 class="font-semibold">Lucas Santos</h3>
-<span class="text-sm text-gray-500 ml-2">• 26 anos</span>
+<div class="w-4 h-4 flex items-center justify-center mr-1">
+<i class="ri-broadcast-line"></i>
 </div>
-<p class="text-sm text-primary font-medium">Meio-campista</p>
-<div class="flex items-center mt-1">
-<div class="w-4 h-4 bg-gray-100 rounded-full overflow-hidden mr-1.5">
-<img src="https://readdy.ai/api/search-image?query=soccer%2520team%2520logo%252C%2520shield%2520design%252C%2520green%2520and%2520yellow%2520colors%252C%2520minimalist%252C%2520professional%252C%2520isolated%2520on%2520white%2520background&width=50&height=50&seq=12&orientation=squarish" alt="Palmeiras FC" class="w-full h-full object-cover">
-</div>
-<span class="text-xs text-gray-600">Palmeiras FC</span>
-</div>
-<div class="flex mt-2 items-center">
-<div class="flex items-center text-xs text-gray-600 mr-3">
-<div class="w-4 h-4 flex items-center justify-center mr-1 text-primary">
-<i class="ri-football-fill"></i>
-</div>
-<span>8 gols</span>
-</div>
-<div class="flex items-center text-xs text-gray-600 mr-3">
-<div class="w-4 h-4 flex items-center justify-center mr-1 text-primary">
-<i class="ri-award-fill"></i>
-</div>
-<span>10 assistências</span>
-</div>
-<div class="flex items-center text-xs text-gray-600">
-<div class="w-4 h-4 flex items-center justify-center mr-1 text-primary">
-<i class="ri-timer-fill"></i>
-</div>
-<span>1.380 min</span>
+<span>Transmissão: TV Local</span>
 </div>
 </div>
 </div>
 </div>
 </div>
-<!-- Jogador 3 -->
-<div class="bg-white rounded card-shadow p-3 relative cursor-pointer">
-<div class="player-rating rating-medium absolute top-3 right-3">7.5</div>
+<!-- Jogo 2 -->
+<div class="bg-white rounded card-shadow mb-3">
+<div class="p-3">
+<div class="flex justify-between items-center mb-3">
+<span class="text-xs font-medium text-primary">Liga Ouro • Rodada 3</span>
+<span class="text-xs text-gray-500">21:00</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex flex-col items-center w-2/5">
+<div class="w-12 h-12 bg-gray-100 rounded-full overflow-hidden mb-2">
+<img src="https://readdy.ai/api/search-image?query=soccer%2520team%2520logo%252C%2520shield%2520design%252C%2520white%2520and%2520red%2520colors%252C%2520minimalist%252C%2520professional%252C%2520isolated%2520on%2520white%2520background&width=80&height=80&seq=7&orientation=squarish" alt="União FC" class="w-full h-full object-cover">
+</div>
+<span class="text-sm font-medium text-center">União FC</span>
+</div>
+<div class="text-center">
+<span class="text-lg font-bold">VS</span>
+<div class="text-xs text-gray-500 mt-1">Estádio União</div>
+</div>
+<div class="flex flex-col items-center w-2/5">
+<div class="w-12 h-12 bg-gray-100 rounded-full overflow-hidden mb-2">
+<img src="https://readdy.ai/api/search-image?query=soccer%2520team%2520logo%252C%2520shield%2520design%252C%2520black%2520and%2520white%2520stripes%252C%2520minimalist%252C%2520professional%252C%2520isolated%2520on%2520white%2520background&width=80&height=80&seq=23&orientation=squarish" alt="Santos FC" class="w-full h-full object-cover">
+</div>
+<span class="text-sm font-medium text-center">Santos FC</span>
+</div>
+</div>
+<div class="mt-3 flex justify-center">
+<button class="text-xs text-primary font-medium flex items-center cursor-pointer toggle-details" data-target="details-2">
+Ver detalhes
+<i class="ri-arrow-down-s-line ml-1"></i>
+</button>
+</div>
+</div>
+<!-- Detalhes do Jogo (Inicialmente oculto) -->
+<div id="details-2" class="hidden border-t border-gray-100 p-3">
+<div class="grid grid-cols-2 gap-4">
+<div>
+<h4 class="text-xs font-semibold text-gray-700 mb-2">Escalação Provável</h4>
+<div class="text-xs text-gray-600 space-y-1">
+<p>GOL: Fernando Alves</p>
+<p>DEF: Marcelo, Júlio, Caio, Eduardo</p>
+<p>MEI: Fábio, Daniel, Igor</p>
+<p>ATA: Márcio, Paulo, Tiago</p>
+</div>
+</div>
+<div>
+<h4 class="text-xs font-semibold text-gray-700 mb-2">Escalação Provável</h4>
+<div class="text-xs text-gray-600 space-y-1">
+<p>GOL: Ricardo Souza</p>
+<p>DEF: Marcos, José, Antônio, Wilson</p>
+<p>MEI: Sérgio, Maurício, Luiz</p>
+<p>ATA: Vinícius, Adriano, Ronaldo</p>
+</div>
+</div>
+</div>
+<div class="mt-3">
+<h4 class="text-xs font-semibold text-gray-700 mb-2">Histórico de Confrontos</h4>
+<div class="space-y-2">
+<div class="flex justify-between text-xs">
+<span>20/04/2025</span>
+<div class="flex-1 text-center">Santos FC 1 x 1 União FC</div>
+<span class="text-gray-500">Liga Ouro</span>
+</div>
+<div class="flex justify-between text-xs">
+<span>18/02/2025</span>
+<div class="flex-1 text-center">União FC 2 x 0 Santos FC</div>
+<span class="text-gray-500">Copa Regional</span>
+</div>
+<div class="flex justify-between text-xs">
+<span>05/10/2024</span>
+<div class="flex-1 text-center">Santos FC 3 x 2 União FC</div>
+<span class="text-gray-500">Liga Ouro</span>
+</div>
+</div>
+</div>
+<div class="mt-3">
+<h4 class="text-xs font-semibold text-gray-700 mb-2">Informações Adicionais</h4>
+<div class="grid grid-cols-2 gap-2 text-xs text-gray-600">
 <div class="flex items-center">
-<div class="w-16 h-16 bg-gray-100 rounded-full overflow-hidden mr-3 border-2 border-primary">
-<img src="https://readdy.ai/api/search-image?query=portrait%2520of%2520a%2520professional%2520soccer%2520player%252C%2520male%252C%2520Brazilian%252C%2520athletic%2520build%252C%2520focused%2520expression%252C%2520soccer%2520jersey%252C%2520professional%2520sports%2520photography%252C%2520studio%2520lighting%252C%2520high%2520quality%252C%2520detailed&width=150&height=150&seq=103&orientation=squarish" alt="Marcelo Silva" class="w-full h-full object-cover object-top">
+<div class="w-4 h-4 flex items-center justify-center mr-1">
+<i class="ri-user-line"></i>
 </div>
-<div class="flex-1">
+<span>Árbitro: Carlos Pereira</span>
+</div>
 <div class="flex items-center">
-<h3 class="font-semibold">Marcelo Silva</h3>
-<span class="text-sm text-gray-500 ml-2">• 28 anos</span>
+<div class="w-4 h-4 flex items-center justify-center mr-1">
+<i class="ri-cloudy-line"></i>
 </div>
-<p class="text-sm text-primary font-medium">Zagueiro</p>
-<div class="flex items-center mt-1">
-<div class="w-4 h-4 bg-gray-100 rounded-full overflow-hidden mr-1.5">
-<img src="https://readdy.ai/api/search-image?query=soccer%2520team%2520logo%252C%2520shield%2520design%252C%2520purple%2520and%2520white%2520colors%252C%2520minimalist%252C%2520professional%252C%2520isolated%2520on%2520white%2520background&width=50&height=50&seq=15&orientation=squarish" alt="Real SP" class="w-full h-full object-cover">
+<span>Clima: 20°C, Céu limpo</span>
 </div>
-<span class="text-xs text-gray-600">Real SP</span>
-</div>
-<div class="flex mt-2 items-center">
-<div class="flex items-center text-xs text-gray-600 mr-3">
-<div class="w-4 h-4 flex items-center justify-center mr-1 text-primary">
-<i class="ri-shield-star-fill"></i>
-</div>
-<span>10 jogos sem sofrer gols</span>
-</div>
-<div class="flex items-center text-xs text-gray-600">
-<div class="w-4 h-4 flex items-center justify-center mr-1 text-primary">
-<i class="ri-timer-fill"></i>
-</div>
-<span>1.440 min</span>
-</div>
-</div>
-</div>
-</div>
-</div>
-<!-- Jogador 4 -->
-<div class="bg-white rounded card-shadow p-3 relative cursor-pointer">
-<div class="player-rating rating-high absolute top-3 right-3">8.4</div>
 <div class="flex items-center">
-<div class="w-16 h-16 bg-gray-100 rounded-full overflow-hidden mr-3 border-2 border-primary">
-<img src="https://readdy.ai/api/search-image?query=portrait%2520of%2520a%2520professional%2520soccer%2520player%252C%2520male%252C%2520Brazilian%252C%2520athletic%2520build%252C%2520determined%2520expression%252C%2520soccer%2520jersey%252C%2520professional%2520sports%2520photography%252C%2520studio%2520lighting%252C%2520high%2520quality%252C%2520detailed&width=150&height=150&seq=104&orientation=squarish" alt="André Ferreira" class="w-full h-full object-cover object-top">
+<div class="w-4 h-4 flex items-center justify-center mr-1">
+<i class="ri-ticket-line"></i>
 </div>
-<div class="flex-1">
+<span>Entrada gratuita</span>
+</div>
 <div class="flex items-center">
-<h3 class="font-semibold">André Ferreira</h3>
-<span class="text-sm text-gray-500 ml-2">• 25 anos</span>
+<div class="w-4 h-4 flex items-center justify-center mr-1">
+<i class="ri-broadcast-line"></i>
 </div>
-<p class="text-sm text-primary font-medium">Atacante</p>
-<div class="flex items-center mt-1">
-<div class="w-4 h-4 bg-gray-100 rounded-full overflow-hidden mr-1.5">
-<img src="https://readdy.ai/api/search-image?query=soccer%2520team%2520logo%252C%2520shield%2520design%252C%2520blue%2520and%2520white%2520colors%252C%2520minimalist%252C%2520professional%252C%2520isolated%2520on%2520white%2520background&width=50&height=50&seq=13&orientation=squarish" alt="Cruzeiro EC" class="w-full h-full object-cover">
-</div>
-<span class="text-xs text-gray-600">Cruzeiro EC</span>
-</div>
-<div class="flex mt-2 items-center">
-<div class="flex items-center text-xs text-gray-600 mr-3">
-<div class="w-4 h-4 flex items-center justify-center mr-1 text-primary">
-<i class="ri-football-fill"></i>
-</div>
-<span>11 gols</span>
-</div>
-<div class="flex items-center text-xs text-gray-600 mr-3">
-<div class="w-4 h-4 flex items-center justify-center mr-1 text-primary">
-<i class="ri-award-fill"></i>
-</div>
-<span>3 assistências</span>
-</div>
-<div class="flex items-center text-xs text-gray-600">
-<div class="w-4 h-4 flex items-center justify-center mr-1 text-primary">
-<i class="ri-timer-fill"></i>
-</div>
-<span>1.320 min</span>
+<span>Transmissão: YouTube</span>
 </div>
 </div>
 </div>
 </div>
 </div>
-<!-- Jogador 5 -->
-<div class="bg-white rounded card-shadow p-3 relative cursor-pointer">
-<div class="player-rating rating-medium absolute top-3 right-3">7.8</div>
+<!-- Amanhã -->
+<div class="date-divider">
+<span class="text-xs font-medium bg-gray-50 text-gray-600">Amanhã • 07/06/2025</span>
+</div>
+<!-- Jogo 3 -->
+<div class="bg-white rounded card-shadow mb-3">
+<div class="p-3">
+<div class="flex justify-between items-center mb-3">
+<span class="text-xs font-medium text-primary">Liga Ouro • Rodada 3</span>
+<span class="text-xs text-gray-500">15:00</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex flex-col items-center w-2/5">
+<div class="w-12 h-12 bg-gray-100 rounded-full overflow-hidden mb-2">
+<img src="https://readdy.ai/api/search-image?query=soccer%2520team%2520logo%252C%2520shield%2520design%252C%2520green%2520and%2520yellow%2520colors%252C%2520minimalist%252C%2520professional%252C%2520isolated%2520on%2520white%2520background&width=80&height=80&seq=4&orientation=squarish" alt="Palmeiras FC" class="w-full h-full object-cover">
+</div>
+<span class="text-sm font-medium text-center">Palmeiras FC</span>
+</div>
+<div class="text-center">
+<span class="text-lg font-bold">VS</span>
+<div class="text-xs text-gray-500 mt-1">Estádio Central</div>
+</div>
+<div class="flex flex-col items-center w-2/5">
+<div class="w-12 h-12 bg-gray-100 rounded-full overflow-hidden mb-2">
+<img src="https://readdy.ai/api/search-image?query=soccer%2520team%2520logo%252C%2520shield%2520design%252C%2520purple%2520and%2520white%2520colors%252C%2520minimalist%252C%2520professional%252C%2520isolated%2520on%2520white%2520background&width=80&height=80&seq=5&orientation=squarish" alt="Real SP" class="w-full h-full object-cover">
+</div>
+<span class="text-sm font-medium text-center">Real SP</span>
+</div>
+</div>
+<div class="mt-3 flex justify-center">
+<button class="text-xs text-primary font-medium flex items-center cursor-pointer toggle-details" data-target="details-3">
+Ver detalhes
+<i class="ri-arrow-down-s-line ml-1"></i>
+</button>
+</div>
+</div>
+<!-- Detalhes do Jogo (Inicialmente oculto) -->
+<div id="details-3" class="hidden border-t border-gray-100 p-3">
+<div class="grid grid-cols-2 gap-4">
+<div>
+<h4 class="text-xs font-semibold text-gray-700 mb-2">Escalação Provável</h4>
+<div class="text-xs text-gray-600 space-y-1">
+<p>GOL: Lucas Santos</p>
+<p>DEF: Roberto, Miguel, Augusto, Flávio</p>
+<p>MEI: Gilberto, Cláudio, Júnior</p>
+<p>ATA: Rogério, Marcelo, Evandro</p>
+</div>
+</div>
+<div>
+<h4 class="text-xs font-semibold text-gray-700 mb-2">Escalação Provável</h4>
+<div class="text-xs text-gray-600 space-y-1">
+<p>GOL: Mauro Costa</p>
+<p>DEF: Guilherme, Renan, Silvio, Danilo</p>
+<p>MEI: Osvaldo, Marcos, Cristiano</p>
+<p>ATA: Luciano, Bernardo, Edson</p>
+</div>
+</div>
+</div>
+<div class="mt-3">
+<h4 class="text-xs font-semibold text-gray-700 mb-2">Histórico de Confrontos</h4>
+<div class="space-y-2">
+<div class="flex justify-between text-xs">
+<span>25/03/2025</span>
+<div class="flex-1 text-center">Real SP 1 x 3 Palmeiras FC</div>
+<span class="text-gray-500">Liga Ouro</span>
+</div>
+<div class="flex justify-between text-xs">
+<span>10/01/2025</span>
+<div class="flex-1 text-center">Palmeiras FC 2 x 2 Real SP</div>
+<span class="text-gray-500">Amistoso</span>
+</div>
+<div class="flex justify-between text-xs">
+<span>08/09/2024</span>
+<div class="flex-1 text-center">Real SP 0 x 1 Palmeiras FC</div>
+<span class="text-gray-500">Liga Ouro</span>
+</div>
+</div>
+</div>
+<div class="mt-3">
+<h4 class="text-xs font-semibold text-gray-700 mb-2">Informações Adicionais</h4>
+<div class="grid grid-cols-2 gap-2 text-xs text-gray-600">
 <div class="flex items-center">
-<div class="w-16 h-16 bg-gray-100 rounded-full overflow-hidden mr-3 border-2 border-primary">
-<img src="https://readdy.ai/api/search-image?query=portrait%2520of%2520a%2520professional%2520soccer%2520player%252C%2520male%252C%2520Brazilian%252C%2520athletic%2520build%252C%2520intense%2520expression%252C%2520soccer%2520jersey%252C%2520professional%2520sports%2520photography%252C%2520studio%2520lighting%252C%2520high%2520quality%252C%2520detailed&width=150&height=150&seq=105&orientation=squarish" alt="Ricardo Almeida" class="w-full h-full object-cover object-top">
+<div class="w-4 h-4 flex items-center justify-center mr-1">
+<i class="ri-user-line"></i>
 </div>
-<div class="flex-1">
+<span>Árbitro: Eduardo Martins</span>
+</div>
 <div class="flex items-center">
-<h3 class="font-semibold">Ricardo Almeida</h3>
-<span class="text-sm text-gray-500 ml-2">• 29 anos</span>
+<div class="w-4 h-4 flex items-center justify-center mr-1">
+<i class="ri-cloudy-line"></i>
 </div>
-<p class="text-sm text-primary font-medium">Meio-campista</p>
-<div class="flex items-center mt-1">
-<div class="w-4 h-4 bg-gray-100 rounded-full overflow-hidden mr-1.5">
-<img src="https://readdy.ai/api/search-image?query=soccer%2520team%2520logo%252C%2520shield%2520design%252C%2520orange%2520and%2520black%2520colors%252C%2520minimalist%252C%2520professional%252C%2520isolated%2520on%2520white%2520background&width=50&height=50&seq=16&orientation=squarish" alt="Tigres FC" class="w-full h-full object-cover">
+<span>Clima: 24°C, Ensolarado</span>
 </div>
-<span class="text-xs text-gray-600">Tigres FC</span>
-</div>
-<div class="flex mt-2 items-center">
-<div class="flex items-center text-xs text-gray-600 mr-3">
-<div class="w-4 h-4 flex items-center justify-center mr-1 text-primary">
-<i class="ri-football-fill"></i>
-</div>
-<span>6 gols</span>
-</div>
-<div class="flex items-center text-xs text-gray-600 mr-3">
-<div class="w-4 h-4 flex items-center justify-center mr-1 text-primary">
-<i class="ri-award-fill"></i>
-</div>
-<span>8 assistências</span>
-</div>
-<div class="flex items-center text-xs text-gray-600">
-<div class="w-4 h-4 flex items-center justify-center mr-1 text-primary">
-<i class="ri-timer-fill"></i>
-</div>
-<span>1.260 min</span>
-</div>
-</div>
-</div>
-</div>
-</div>
-<!-- Jogador 6 -->
-<div class="bg-white rounded card-shadow p-3 relative cursor-pointer">
-<div class="player-rating rating-high absolute top-3 right-3">8.5</div>
 <div class="flex items-center">
-<div class="w-16 h-16 bg-gray-100 rounded-full overflow-hidden mr-3 border-2 border-primary">
-<img src="https://readdy.ai/api/search-image?query=portrait%2520of%2520a%2520professional%2520soccer%2520goalkeeper%252C%2520male%252C%2520Brazilian%252C%2520athletic%2520build%252C%2520focused%2520expression%252C%2520goalkeeper%2520jersey%252C%2520professional%2520sports%2520photography%252C%2520studio%2520lighting%252C%2520high%2520quality%252C%2520detailed&width=150&height=150&seq=106&orientation=squarish" alt="Carlos Pereira" class="w-full h-full object-cover object-top">
+<div class="w-4 h-4 flex items-center justify-center mr-1">
+<i class="ri-ticket-line"></i>
 </div>
-<div class="flex-1">
+<span>Entrada gratuita</span>
+</div>
 <div class="flex items-center">
-<h3 class="font-semibold">Carlos Pereira</h3>
-<span class="text-sm text-gray-500 ml-2">• 31 anos</span>
+<div class="w-4 h-4 flex items-center justify-center mr-1">
+<i class="ri-broadcast-line"></i>
 </div>
-<p class="text-sm text-primary font-medium">Goleiro</p>
-<div class="flex items-center mt-1">
-<div class="w-4 h-4 bg-gray-100 rounded-full overflow-hidden mr-1.5">
-<img src="https://readdy.ai/api/search-image?query=soccer%2520team%2520logo%252C%2520shield%2520design%252C%2520green%2520and%2520yellow%2520colors%252C%2520minimalist%252C%2520professional%252C%2520isolated%2520on%2520white%2520background&width=50&height=50&seq=12&orientation=squarish" alt="Palmeiras FC" class="w-full h-full object-cover">
-</div>
-<span class="text-xs text-gray-600">Palmeiras FC</span>
-</div>
-<div class="flex mt-2 items-center">
-<div class="flex items-center text-xs text-gray-600 mr-3">
-<div class="w-4 h-4 flex items-center justify-center mr-1 text-primary">
-<i class="ri-shield-star-fill"></i>
-</div>
-<span>12 jogos sem sofrer gols</span>
-</div>
-<div class="flex items-center text-xs text-gray-600">
-<div class="w-4 h-4 flex items-center justify-center mr-1 text-primary">
-<i class="ri-timer-fill"></i>
-</div>
-<span>1.440 min</span>
+<span>Transmissão: TV Local e App</span>
 </div>
 </div>
 </div>
 </div>
 </div>
-<!-- Jogador 7 -->
-<div class="bg-white rounded card-shadow p-3 relative cursor-pointer">
-<div class="player-rating rating-medium absolute top-3 right-3">7.3</div>
+<!-- Jogo 4 -->
+<div class="bg-white rounded card-shadow mb-3">
+<div class="p-3">
+<div class="flex justify-between items-center mb-3">
+<span class="text-xs font-medium text-secondary">Liga Prata • Rodada 3</span>
+<span class="text-xs text-gray-500">16:30</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex flex-col items-center w-2/5">
+<div class="w-12 h-12 bg-gray-100 rounded-full overflow-hidden mb-2">
+<img src="https://readdy.ai/api/search-image?query=soccer%2520team%2520logo%252C%2520shield%2520design%252C%2520blue%2520and%2520yellow%2520colors%252C%2520minimalist%252C%2520professional%252C%2520isolated%2520on%2520white%2520background&width=80&height=80&seq=24&orientation=squarish" alt="Atlético SP" class="w-full h-full object-cover">
+</div>
+<span class="text-sm font-medium text-center">Atlético SP</span>
+</div>
+<div class="text-center">
+<span class="text-lg font-bold">VS</span>
+<div class="text-xs text-gray-500 mt-1">Campo da Vila</div>
+</div>
+<div class="flex flex-col items-center w-2/5">
+<div class="w-12 h-12 bg-gray-100 rounded-full overflow-hidden mb-2">
+<img src="https://readdy.ai/api/search-image?query=soccer%2520team%2520logo%252C%2520shield%2520design%252C%2520red%2520and%2520white%2520stripes%252C%2520minimalist%252C%2520professional%252C%2520isolated%2520on%2520white%2520background&width=80&height=80&seq=25&orientation=squarish" alt="Juventus FC" class="w-full h-full object-cover">
+</div>
+<span class="text-sm font-medium text-center">Juventus FC</span>
+</div>
+</div>
+<div class="mt-3 flex justify-center">
+<button class="text-xs text-primary font-medium flex items-center cursor-pointer toggle-details" data-target="details-4">
+Ver detalhes
+<i class="ri-arrow-down-s-line ml-1"></i>
+</button>
+</div>
+</div>
+<!-- Detalhes do Jogo (Inicialmente oculto) -->
+<div id="details-4" class="hidden border-t border-gray-100 p-3">
+<div class="grid grid-cols-2 gap-4">
+<div>
+<h4 class="text-xs font-semibold text-gray-700 mb-2">Escalação Provável</h4>
+<div class="text-xs text-gray-600 space-y-1">
+<p>GOL: Sérgio Almeida</p>
+<p>DEF: Arnaldo, Márcio, Valdir, Cássio</p>
+<p>MEI: Cleiton, Robson, Wanderson</p>
+<p>ATA: Ednaldo, Adilson, Reinaldo</p>
+</div>
+</div>
+<div>
+<h4 class="text-xs font-semibold text-gray-700 mb-2">Escalação Provável</h4>
+<div class="text-xs text-gray-600 space-y-1">
+<p>GOL: Fábio Monteiro</p>
+<p>DEF: Jeferson, Luís, Rogério, Maurício</p>
+<p>MEI: Valter, Romário, Edmilson</p>
+<p>ATA: Kléber, Josimar, Wendel</p>
+</div>
+</div>
+</div>
+<div class="mt-3">
+<h4 class="text-xs font-semibold text-gray-700 mb-2">Histórico de Confrontos</h4>
+<div class="space-y-2">
+<div class="flex justify-between text-xs">
+<span>15/04/2025</span>
+<div class="flex-1 text-center">Juventus FC 2 x 1 Atlético SP</div>
+<span class="text-gray-500">Liga Prata</span>
+</div>
+<div class="flex justify-between text-xs">
+<span>28/01/2025</span>
+<div class="flex-1 text-center">Atlético SP 3 x 0 Juventus FC</div>
+<span class="text-gray-500">Copa Regional</span>
+</div>
+<div class="flex justify-between text-xs">
+<span>12/10/2024</span>
+<div class="flex-1 text-center">Juventus FC 1 x 1 Atlético SP</div>
+<span class="text-gray-500">Liga Prata</span>
+</div>
+</div>
+</div>
+<div class="mt-3">
+<h4 class="text-xs font-semibold text-gray-700 mb-2">Informações Adicionais</h4>
+<div class="grid grid-cols-2 gap-2 text-xs text-gray-600">
 <div class="flex items-center">
-<div class="w-16 h-16 bg-gray-100 rounded-full overflow-hidden mr-3 border-2 border-primary">
-<img src="https://readdy.ai/api/search-image?query=portrait%2520of%2520a%2520professional%2520soccer%2520player%252C%2520male%252C%2520Brazilian%252C%2520athletic%2520build%252C%2520serious%2520expression%252C%2520soccer%2520jersey%252C%2520professional%2520sports%2520photography%252C%2520studio%2520lighting%252C%2520high%2520quality%252C%2520detailed&width=150&height=150&seq=107&orientation=squarish" alt="Gustavo Martins" class="w-full h-full object-cover object-top">
+<div class="w-4 h-4 flex items-center justify-center mr-1">
+<i class="ri-user-line"></i>
 </div>
-<div class="flex-1">
+<span>Árbitro: Roberto Fernandes</span>
+</div>
 <div class="flex items-center">
-<h3 class="font-semibold">Gustavo Martins</h3>
-<span class="text-sm text-gray-500 ml-2">• 27 anos</span>
+<div class="w-4 h-4 flex items-center justify-center mr-1">
+<i class="ri-cloudy-line"></i>
 </div>
-<p class="text-sm text-primary font-medium">Lateral</p>
-<div class="flex items-center mt-1">
-<div class="w-4 h-4 bg-gray-100 rounded-full overflow-hidden mr-1.5">
-<img src="https://readdy.ai/api/search-image?query=soccer%2520team%2520logo%252C%2520shield%2520design%252C%2520red%2520and%2520black%2520colors%252C%2520minimalist%252C%2520professional%252C%2520isolated%2520on%2520white%2520background&width=50&height=50&seq=14&orientation=squarish" alt="Estrela FC" class="w-full h-full object-cover">
+<span>Clima: 21°C, Parcialmente nublado</span>
 </div>
-<span class="text-xs text-gray-600">Estrela FC</span>
-</div>
-<div class="flex mt-2 items-center">
-<div class="flex items-center text-xs text-gray-600 mr-3">
-<div class="w-4 h-4 flex items-center justify-center mr-1 text-primary">
-<i class="ri-football-fill"></i>
-</div>
-<span>2 gols</span>
-</div>
-<div class="flex items-center text-xs text-gray-600 mr-3">
-<div class="w-4 h-4 flex items-center justify-center mr-1 text-primary">
-<i class="ri-award-fill"></i>
-</div>
-<span>6 assistências</span>
-</div>
-<div class="flex items-center text-xs text-gray-600">
-<div class="w-4 h-4 flex items-center justify-center mr-1 text-primary">
-<i class="ri-timer-fill"></i>
-</div>
-<span>1.350 min</span>
-</div>
-</div>
-</div>
-</div>
-</div>
-<!-- Jogador 8 -->
-<div class="bg-white rounded card-shadow p-3 relative cursor-pointer">
-<div class="player-rating rating-low absolute top-3 right-3">6.8</div>
 <div class="flex items-center">
-<div class="w-16 h-16 bg-gray-100 rounded-full overflow-hidden mr-3 border-2 border-gray-200">
-<img src="https://readdy.ai/api/search-image?query=portrait%2520of%2520a%2520professional%2520soccer%2520player%252C%2520male%252C%2520Brazilian%252C%2520athletic%2520build%252C%2520determined%2520expression%252C%2520soccer%2520jersey%252C%2520professional%2520sports%2520photography%252C%2520studio%2520lighting%252C%2520high%2520quality%252C%2520detailed&width=150&height=150&seq=108&orientation=squarish" alt="Thiago Costa" class="w-full h-full object-cover object-top">
+<div class="w-4 h-4 flex items-center justify-center mr-1">
+<i class="ri-ticket-line"></i>
 </div>
-<div class="flex-1">
+<span>Entrada gratuita</span>
+</div>
 <div class="flex items-center">
-<h3 class="font-semibold">Thiago Costa</h3>
-<span class="text-sm text-gray-500 ml-2">• 22 anos</span>
+<div class="w-4 h-4 flex items-center justify-center mr-1">
+<i class="ri-broadcast-line"></i>
 </div>
-<p class="text-sm text-primary font-medium">Atacante</p>
-<div class="flex items-center mt-1">
-<div class="w-4 h-4 bg-gray-100 rounded-full overflow-hidden mr-1.5">
-<img src="https://readdy.ai/api/search-image?query=soccer%2520team%2520logo%252C%2520shield%2520design%252C%2520purple%2520and%2520white%2520colors%252C%2520minimalist%252C%2520professional%252C%2520isolated%2520on%2520white%2520background&width=50&height=50&seq=15&orientation=squarish" alt="Real SP" class="w-full h-full object-cover">
-</div>
-<span class="text-xs text-gray-600">Real SP</span>
-</div>
-<div class="flex mt-2 items-center">
-<div class="flex items-center text-xs text-gray-600 mr-3">
-<div class="w-4 h-4 flex items-center justify-center mr-1 text-primary">
-<i class="ri-football-fill"></i>
-</div>
-<span>4 gols</span>
-</div>
-<div class="flex items-center text-xs text-gray-600 mr-3">
-<div class="w-4 h-4 flex items-center justify-center mr-1 text-primary">
-<i class="ri-award-fill"></i>
-</div>
-<span>1 assistência</span>
-</div>
-<div class="flex items-center text-xs text-gray-600">
-<div class="w-4 h-4 flex items-center justify-center mr-1 text-primary">
-<i class="ri-timer-fill"></i>
-</div>
-<span>980 min</span>
+<span>Transmissão: Rádio local</span>
 </div>
 </div>
 </div>
 </div>
 </div>
+<!-- Domingo -->
+<div class="date-divider">
+<span class="text-xs font-medium bg-gray-50 text-gray-600">Domingo • 08/06/2025</span>
 </div>
+<!-- Jogo 5 -->
+<div class="bg-white rounded card-shadow mb-3">
+<div class="p-3">
+<div class="flex justify-between items-center mb-3">
+<span class="text-xs font-medium text-primary">Liga Ouro • Rodada 3</span>
+<span class="text-xs text-gray-500">10:00</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex flex-col items-center w-2/5">
+<div class="w-12 h-12 bg-gray-100 rounded-full overflow-hidden mb-2">
+<img src="https://readdy.ai/api/search-image?query=soccer%2520team%2520logo%252C%2520shield%2520design%252C%2520orange%2520and%2520black%2520colors%252C%2520minimalist%252C%2520professional%252C%2520isolated%2520on%2520white%2520background&width=80&height=80&seq=6&orientation=squarish" alt="Tigres FC" class="w-full h-full object-cover">
+</div>
+<span class="text-sm font-medium text-center">Tigres FC</span>
+</div>
+<div class="text-center">
+<span class="text-lg font-bold">VS</span>
+<div class="text-xs text-gray-500 mt-1">Arena Leste</div>
+</div>
+<div class="flex flex-col items-center w-2/5">
+<div class="w-12 h-12 bg-gray-100 rounded-full overflow-hidden mb-2">
+<img src="https://readdy.ai/api/search-image?query=soccer%2520team%2520logo%252C%2520shield%2520design%252C%2520white%2520and%2520red%2520colors%252C%2520minimalist%252C%2520professional%252C%2520isolated%2520on%2520white%2520background&width=80&height=80&seq=7&orientation=squarish" alt="União FC" class="w-full h-full object-cover">
+</div>
+<span class="text-sm font-medium text-center">União FC</span>
+</div>
+</div>
+<div class="mt-3 flex justify-center">
+<button class="text-xs text-primary font-medium flex items-center cursor-pointer toggle-details" data-target="details-5">
+Ver detalhes
+<i class="ri-arrow-down-s-line ml-1"></i>
+</button>
+</div>
+</div>
+<!-- Detalhes do Jogo (Inicialmente oculto) -->
+<div id="details-5" class="hidden border-t border-gray-100 p-3">
+<div class="grid grid-cols-2 gap-4">
+<div>
+<h4 class="text-xs font-semibold text-gray-700 mb-2">Escalação Provável</h4>
+<div class="text-xs text-gray-600 space-y-1">
+<p>GOL: Marcelo Prado</p>
+<p>DEF: Juliano, Renato, Osvaldo, Cláudio</p>
+<p>MEI: Márcio, Ronaldo, Edson</p>
+<p>ATA: Leandro, Fábio, Wellington</p>
+</div>
+</div>
+<div>
+<h4 class="text-xs font-semibold text-gray-700 mb-2">Escalação Provável</h4>
+<div class="text-xs text-gray-600 space-y-1">
+<p>GOL: Rogério Silva</p>
+<p>DEF: Flávio, Marcos, Gilberto, Adriano</p>
+<p>MEI: Sérgio, Maurício, Antônio</p>
+<p>ATA: Caio, Eduardo, Ricardo</p>
+</div>
+</div>
+</div>
+<div class="mt-3">
+<h4 class="text-xs font-semibold text-gray-700 mb-2">Histórico de Confrontos</h4>
+<div class="space-y-2">
+<div class="flex justify-between text-xs">
+<span>02/04/2025</span>
+<div class="flex-1 text-center">União FC 1 x 0 Tigres FC</div>
+<span class="text-gray-500">Liga Ouro</span>
+</div>
+<div class="flex justify-between text-xs">
+<span>15/12/2024</span>
+<div class="flex-1 text-center">Tigres FC 2 x 2 União FC</div>
+<span class="text-gray-500">Copa Regional</span>
+</div>
+<div class="flex justify-between text-xs">
+<span>20/08/2024</span>
+<div class="flex-1 text-center">União FC 1 x 3 Tigres FC</div>
+<span class="text-gray-500">Liga Ouro</span>
+</div>
+</div>
+</div>
+<div class="mt-3">
+<h4 class="text-xs font-semibold text-gray-700 mb-2">Informações Adicionais</h4>
+<div class="grid grid-cols-2 gap-2 text-xs text-gray-600">
+<div class="flex items-center">
+<div class="w-4 h-4 flex items-center justify-center mr-1">
+<i class="ri-user-line"></i>
+</div>
+<span>Árbitro: Paulo Gonçalves</span>
+</div>
+<div class="flex items-center">
+<div class="w-4 h-4 flex items-center justify-center mr-1">
+<i class="ri-cloudy-line"></i>
+</div>
+<span>Clima: 25°C, Ensolarado</span>
+</div>
+<div class="flex items-center">
+<div class="w-4 h-4 flex items-center justify-center mr-1">
+<i class="ri-ticket-line"></i>
+</div>
+<span>Entrada gratuita</span>
+</div>
+<div class="flex items-center">
+<div class="w-4 h-4 flex items-center justify-center mr-1">
+<i class="ri-broadcast-line"></i>
+</div>
+<span>Transmissão: TV Local</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Jogo 6 -->
+<div class="bg-white rounded card-shadow mb-3">
+<div class="p-3">
+<div class="flex justify-between items-center mb-3">
+<span class="text-xs font-medium text-secondary">Liga Prata • Rodada 3</span>
+<span class="text-xs text-gray-500">16:00</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex flex-col items-center w-2/5">
+<div class="w-12 h-12 bg-gray-100 rounded-full overflow-hidden mb-2">
+<img src="https://readdy.ai/api/search-image?query=soccer%2520team%2520logo%252C%2520shield%2520design%252C%2520green%2520and%2520white%2520colors%252C%2520minimalist%252C%2520professional%252C%2520isolated%2520on%2520white%2520background&width=80&height=80&seq=26&orientation=squarish" alt="Guarani FC" class="w-full h-full object-cover">
+</div>
+<span class="text-sm font-medium text-center">Guarani FC</span>
+</div>
+<div class="text-center">
+<span class="text-lg font-bold">VS</span>
+<div class="text-xs text-gray-500 mt-1">Estádio Municipal</div>
+</div>
+<div class="flex flex-col items-center w-2/5">
+<div class="w-12 h-12 bg-gray-100 rounded-full overflow-hidden mb-2">
+<img src="https://readdy.ai/api/search-image?query=soccer%2520team%2520logo%252C%2520shield%2520design%252C%2520yellow%2520and%2520blue%2520colors%252C%2520minimalist%252C%2520professional%252C%2520isolated%2520on%2520white%2520background&width=80&height=80&seq=27&orientation=squarish" alt="Ipiranga FC" class="w-full h-full object-cover">
+</div>
+<span class="text-sm font-medium text-center">Ipiranga FC</span>
+</div>
+</div>
+<div class="mt-3 flex justify-center">
+<button class="text-xs text-primary font-medium flex items-center cursor-pointer toggle-details" data-target="details-6">
+Ver detalhes
+<i class="ri-arrow-down-s-line ml-1"></i>
+</button>
+</div>
+</div>
+<!-- Detalhes do Jogo (Inicialmente oculto) -->
+<div id="details-6" class="hidden border-t border-gray-100 p-3">
+<div class="grid grid-cols-2 gap-4">
+<div>
+<h4 class="text-xs font-semibold text-gray-700 mb-2">Escalação Provável</h4>
+<div class="text-xs text-gray-600 space-y-1">
+<p>GOL: Júlio César</p>
+<p>DEF: Tiago, Vinícius, Luciano, Márcio</p>
+<p>MEI: Renato, Cláudio, Ademir</p>
+<p>ATA: Jorginho, Paulinho, Zezinho</p>
+</div>
+</div>
+<div>
+<h4 class="text-xs font-semibold text-gray-700 mb-2">Escalação Provável</h4>
+<div class="text-xs text-gray-600 space-y-1">
+<p>GOL: Edson Luiz</p>
+<p>DEF: Robson, Marcos, Evandro, Gilmar</p>
+<p>MEI: Nivaldo, Adilson, Toninho</p>
+<p>ATA: Carlinhos, Serginho, Marquinhos</p>
+</div>
+</div>
+</div>
+<div class="mt-3">
+<h4 class="text-xs font-semibold text-gray-700 mb-2">Histórico de Confrontos</h4>
+<div class="space-y-2">
+<div class="flex justify-between text-xs">
+<span>10/03/2025</span>
+<div class="flex-1 text-center">Ipiranga FC 0 x 0 Guarani FC</div>
+<span class="text-gray-500">Liga Prata</span>
+</div>
+<div class="flex justify-between text-xs">
+<span>25/11/2024</span>
+<div class="flex-1 text-center">Guarani FC 2 x 1 Ipiranga FC</div>
+<span class="text-gray-500">Copa Regional</span>
+</div>
+<div class="flex justify-between text-xs">
+<span>05/07/2024</span>
+<div class="flex-1 text-center">Ipiranga FC 3 x 1 Guarani FC</div>
+<span class="text-gray-500">Liga Prata</span>
+</div>
+</div>
+</div>
+<div class="mt-3">
+<h4 class="text-xs font-semibold text-gray-700 mb-2">Informações Adicionais</h4>
+<div class="grid grid-cols-2 gap-2 text-xs text-gray-600">
+<div class="flex items-center">
+<div class="w-4 h-4 flex items-center justify-center mr-1">
+<i class="ri-user-line"></i>
+</div>
+<span>Árbitro: Márcio Ribeiro</span>
+</div>
+<div class="flex items-center">
+<div class="w-4 h-4 flex items-center justify-center mr-1">
+<i class="ri-cloudy-line"></i>
+</div>
+<span>Clima: 22°C, Nublado</span>
+</div>
+<div class="flex items-center">
+<div class="w-4 h-4 flex items-center justify-center mr-1">
+<i class="ri-ticket-line"></i>
+</div>
+<span>Entrada gratuita</span>
+</div>
+<div class="flex items-center">
+<div class="w-4 h-4 flex items-center justify-center mr-1">
+<i class="ri-broadcast-line"></i>
+</div>
+<span>Transmissão: YouTube</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Próxima Semana -->
+<div class="date-divider">
+<span class="text-xs font-medium bg-gray-50 text-gray-600">Próxima Semana</span>
+</div>
+<!-- Jogo 7 -->
+<div class="bg-white rounded card-shadow mb-3">
+<div class="p-3">
+<div class="flex justify-between items-center mb-3">
+<span class="text-xs font-medium text-primary">Liga Ouro • Rodada 4</span>
+<span class="text-xs text-gray-500">13/06 • 19:30</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex flex-col items-center w-2/5">
+<div class="w-12 h-12 bg-gray-100 rounded-full overflow-hidden mb-2">
+<img src="https://readdy.ai/api/search-image?query=soccer%2520team%2520logo%252C%2520shield%2520design%252C%2520blue%2520and%2520white%2520colors%252C%2520minimalist%252C%2520professional%252C%2520isolated%2520on%2520white%2520background&width=80&height=80&seq=3&orientation=squarish" alt="Cruzeiro EC" class="w-full h-full object-cover">
+</div>
+<span class="text-sm font-medium text-center">Cruzeiro EC</span>
+</div>
+<div class="text-center">
+<span class="text-lg font-bold">VS</span>
+<div class="text-xs text-gray-500 mt-1">Estádio Azul</div>
+</div>
+<div class="flex flex-col items-center w-2/5">
+<div class="w-12 h-12 bg-gray-100 rounded-full overflow-hidden mb-2">
+<img src="https://readdy.ai/api/search-image?query=soccer%2520team%2520logo%252C%2520shield%2520design%252C%2520orange%2520and%2520black%2520colors%252C%2520minimalist%252C%2520professional%252C%2520isolated%2520on%2520white%2520background&width=80&height=80&seq=6&orientation=squarish" alt="Tigres FC" class="w-full h-full object-cover">
+</div>
+<span class="text-sm font-medium text-center">Tigres FC</span>
+</div>
+</div>
+<div class="mt-3 flex justify-center">
+<button class="text-xs text-primary font-medium flex items-center cursor-pointer toggle-details" data-target="details-7">
+Ver detalhes
+<i class="ri-arrow-down-s-line ml-1"></i>
+</button>
+</div>
+</div>
+<!-- Detalhes do Jogo (Inicialmente oculto) -->
+<div id="details-7" class="hidden border-t border-gray-100 p-3">
+<div class="grid grid-cols-2 gap-4">
+<div>
+<h4 class="text-xs font-semibold text-gray-700 mb-2">Escalação Provável</h4>
+<div class="text-xs text-gray-600 space-y-1">
+<p>GOL: André Luiz</p>
+<p>DEF: Matheus, Vitor, Diego, Thiago</p>
+<p>MEI: Leandro, Gabriel, Renato</p>
+<p>ATA: Alexandre, Leonardo, Roberto</p>
+</div>
+</div>
+<div>
+<h4 class="text-xs font-semibold text-gray-700 mb-2">Escalação Provável</h4>
+<div class="text-xs text-gray-600 space-y-1">
+<p>GOL: Marcelo Prado</p>
+<p>DEF: Juliano, Renato, Osvaldo, Cláudio</p>
+<p>MEI: Márcio, Ronaldo, Edson</p>
+<p>ATA: Leandro, Fábio, Wellington</p>
+</div>
+</div>
+</div>
+<div class="mt-3">
+<h4 class="text-xs font-semibold text-gray-700 mb-2">Histórico de Confrontos</h4>
+<div class="space-y-2">
+<div class="flex justify-between text-xs">
+<span>05/03/2025</span>
+<div class="flex-1 text-center">Tigres FC 1 x 2 Cruzeiro EC</div>
+<span class="text-gray-500">Liga Ouro</span>
+</div>
+<div class="flex justify-between text-xs">
+<span>20/12/2024</span>
+<div class="flex-1 text-center">Cruzeiro EC 3 x 1 Tigres FC</div>
+<span class="text-gray-500">Copa Regional</span>
+</div>
+<div class="flex justify-between text-xs">
+<span>10/08/2024</span>
+<div class="flex-1 text-center">Tigres FC 0 x 0 Cruzeiro EC</div>
+<span class="text-gray-500">Liga Ouro</span>
+</div>
+</div>
+</div>
+<div class="mt-3">
+<h4 class="text-xs font-semibold text-gray-700 mb-2">Informações Adicionais</h4>
+<div class="grid grid-cols-2 gap-2 text-xs text-gray-600">
+<div class="flex items-center">
+<div class="w-4 h-4 flex items-center justify-center mr-1">
+<i class="ri-user-line"></i>
+</div>
+<span>Árbitro: A definir</span>
+</div>
+<div class="flex items-center">
+<div class="w-4 h-4 flex items-center justify-center mr-1">
+<i class="ri-cloudy-line"></i>
+</div>
+<span>Clima: Previsão indisponível</span>
+</div>
+<div class="flex items-center">
+<div class="w-4 h-4 flex items-center justify-center mr-1">
+<i class="ri-ticket-line"></i>
+</div>
+<span>Entrada gratuita</span>
+</div>
+<div class="flex items-center">
+<div class="w-4 h-4 flex items-center justify-center mr-1">
+<i class="ri-broadcast-line"></i>
+</div>
+<span>Transmissão: TV Local</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Jogo 8 -->
+<div class="bg-white rounded card-shadow mb-3">
+<div class="p-3">
+<div class="flex justify-between items-center mb-3">
+<span class="text-xs font-medium text-primary">Liga Ouro • Rodada 4</span>
+<span class="text-xs text-gray-500">14/06 • 16:00</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex flex-col items-center w-2/5">
+<div class="w-12 h-12 bg-gray-100 rounded-full overflow-hidden mb-2">
+<img src="https://readdy.ai/api/search-image?query=soccer%2520team%2520logo%252C%2520shield%2520design%252C%2520red%2520and%2520black%2520colors%252C%2520minimalist%252C%2520professional%252C%2520isolated%2520on%2520white%2520background&width=80&height=80&seq=2&orientation=squarish" alt="Estrela FC" class="w-full h-full object-cover">
+</div>
+<span class="text-sm font-medium text-center">Estrela FC</span>
+</div>
+<div class="text-center">
+<span class="text-lg font-bold">VS</span>
+<div class="text-xs text-gray-500 mt-1">Campo Municipal</div>
+</div>
+<div class="flex flex-col items-center w-2/5">
+<div class="w-12 h-12 bg-gray-100 rounded-full overflow-hidden mb-2">
+<img src="https://readdy.ai/api/search-image?query=soccer%2520team%2520logo%252C%2520shield%2520design%252C%2520green%2520and%2520yellow%2520colors%252C%2520minimalist%252C%2520professional%252C%2520isolated%2520on%2520white%2520background&width=80&height=80&seq=4&orientation=squarish" alt="Palmeiras FC" class="w-full h-full object-cover">
+</div>
+<span class="text-sm font-medium text-center">Palmeiras FC</span>
+</div>
+</div>
+<div class="mt-3 flex justify-center">
+<button class="text-xs text-primary font-medium flex items-center cursor-pointer toggle-details" data-target="details-8">
+Ver detalhes
+<i class="ri-arrow-down-s-line ml-1"></i>
+</button>
+</div>
+</div>
+<!-- Detalhes do Jogo (Inicialmente oculto) -->
+<div id="details-8" class="hidden border-t border-gray-100 p-3">
+<div class="grid grid-cols-2 gap-4">
+<div>
+<h4 class="text-xs font-semibold text-gray-700 mb-2">Escalação Provável</h4>
+<div class="text-xs text-gray-600 space-y-1">
+<p>GOL: Marcos Silva</p>
+<p>DEF: Carlos, João, Pedro, Lucas</p>
+<p>MEI: Rafael, Gustavo, Henrique</p>
+<p>ATA: Bruno, Rodrigo, Felipe</p>
+</div>
+</div>
+<div>
+<h4 class="text-xs font-semibold text-gray-700 mb-2">Escalação Provável</h4>
+<div class="text-xs text-gray-600 space-y-1">
+<p>GOL: Lucas Santos</p>
+<p>DEF: Roberto, Miguel, Augusto, Flávio</p>
+<p>MEI: Gilberto, Cláudio, Júnior</p>
+<p>ATA: Rogério, Marcelo, Evandro</p>
+</div>
+</div>
+</div>
+<div class="mt-3">
+<h4 class="text-xs font-semibold text-gray-700 mb-2">Histórico de Confrontos</h4>
+<div class="space-y-2">
+<div class="flex justify-between text-xs">
+<span>18/02/2025</span>
+<div class="flex-1 text-center">Palmeiras FC 2 x 0 Estrela FC</div>
+<span class="text-gray-500">Liga Ouro</span>
+</div>
+<div class="flex justify-between text-xs">
+<span>05/11/2024</span>
+<div class="flex-1 text-center">Estrela FC 1 x 1 Palmeiras FC</div>
+<span class="text-gray-500">Copa Regional</span>
+</div>
+<div class="flex justify-between text-xs">
+<span>22/07/2024</span>
+<div class="flex-1 text-center">Palmeiras FC 3 x 2 Estrela FC</div>
+<span class="text-gray-500">Liga Ouro</span>
+</div>
+</div>
+</div>
+<div class="mt-3">
+<h4 class="text-xs font-semibold text-gray-700 mb-2">Informações Adicionais</h4>
+<div class="grid grid-cols-2 gap-2 text-xs text-gray-600">
+<div class="flex items-center">
+<div class="w-4 h-4 flex items-center justify-center mr-1">
+<i class="ri-user-line"></i>
+</div>
+<span>Árbitro: A definir</span>
+</div>
+<div class="flex items-center">
+<div class="w-4 h-4 flex items-center justify-center mr-1">
+<i class="ri-cloudy-line"></i>
+</div>
+<span>Clima: Previsão indisponível</span>
+</div>
+<div class="flex items-center">
+<div class="w-4 h-4 flex items-center justify-center mr-1">
+<i class="ri-ticket-line"></i>
+</div>
+<span>Entrada gratuita</span>
+</div>
+<div class="flex items-center">
+<div class="w-4 h-4 flex items-center justify-center mr-1">
+<i class="ri-broadcast-line"></i>
+</div>
+<span>Transmissão: TV Local e App</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
 </main>
 <!-- Tab Bar -->
 <div class="fixed bottom-0 w-full bg-white shadow-[0_-2px_10px_rgba(0,0,0,0.05)] z-50">
@@ -446,9 +984,9 @@ color: white;
 </div>
 <span class="text-xs mt-1">Início</span>
 </a>
-<div class="flex flex-col items-center justify-center cursor-pointer text-gray-500">
+<div class="flex flex-col items-center justify-center cursor-pointer text-primary">
 <div class="w-6 h-6 flex items-center justify-center">
-<i class="ri-calendar-line ri-lg"></i>
+<i class="ri-calendar-fill ri-lg"></i>
 </div>
 <span class="text-xs mt-1">Jogos</span>
 </div>
@@ -464,217 +1002,34 @@ color: white;
 </div>
 <span class="text-xs mt-1">Notícias</span>
 </div>
-<div class="flex flex-col items-center justify-center cursor-pointer text-primary">
+<div class="flex flex-col items-center justify-center cursor-pointer text-gray-500">
 <div class="w-6 h-6 flex items-center justify-center">
-<i class="ri-user-3-fill ri-lg"></i>
+<i class="ri-user-3-line ri-lg"></i>
 </div>
 <span class="text-xs mt-1">Perfil</span>
 </div>
 </div>
 </div>
-<!-- FAB - Botão de Ação Flutuante -->
-<div class="fixed bottom-20 right-4 z-50">
-<button class="w-14 h-14 rounded-full bg-primary text-white shadow-lg flex items-center justify-center cursor-pointer !rounded-button">
-<i class="ri-add-fill ri-xl"></i>
-</button>
-</div>
 <!-- Scripts -->
-<script id="filter-handler">
+<script id="navigation-handler">
 document.addEventListener('DOMContentLoaded', function() {
-// Position filter buttons
-const positionButtons = document.querySelectorAll('.py-2 .flex.space-x-2 button');
-positionButtons.forEach(button => {
-button.addEventListener('click', function() {
-// Remove active class from all buttons
-positionButtons.forEach(btn => {
-btn.classList.remove('bg-primary', 'text-white');
-btn.classList.add('bg-white', 'text-gray-700');
-});
-// Add active class to clicked button
-this.classList.remove('bg-white', 'text-gray-700');
-this.classList.add('bg-primary', 'text-white');
-});
-});
-// Team filter buttons
-const teamButtons = document.querySelectorAll('.py-2 .flex.space-x-3 button');
-teamButtons.forEach(button => {
-button.addEventListener('click', function() {
-// Remove active class from all buttons
-teamButtons.forEach(btn => {
-btn.classList.remove('bg-primary', 'text-white');
-btn.classList.add('bg-white', 'text-gray-700');
-});
-// Add active class to clicked button
-this.classList.remove('bg-white', 'text-gray-700');
-this.classList.add('bg-primary', 'text-white');
-});
-});
-});
-</script>
-<script id="player-cards-handler">
-document.addEventListener('DOMContentLoaded', function() {
-const playerCards = document.querySelectorAll('.bg-white.rounded.card-shadow.p-3.relative');
-playerCards.forEach(card => {
-card.addEventListener('click', function() {
-// Show player profile modal
-const playerName = this.querySelector('h3').textContent;
-const playerPosition = this.querySelector('p.text-sm.text-primary').textContent;
-const playerTeam = this.querySelector('.flex.items-center.mt-1 span').textContent;
-const modal = document.createElement('div');
-modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
-modal.innerHTML = `
-<div class="bg-white rounded-lg w-11/12 max-h-[80vh] overflow-y-auto">
-<div class="gradient-bg p-4 text-white rounded-t-lg">
-<div class="flex justify-between items-center mb-3">
-<h3 class="font-semibold text-lg">Perfil do Jogador</h3>
-<button class="close-modal w-8 h-8 flex items-center justify-center">
-<i class="ri-close-line ri-lg"></i>
-</button>
-</div>
-<div class="flex items-center">
-<div class="w-20 h-20 bg-gray-100 rounded-full overflow-hidden border-2 border-white mr-4">
-${this.querySelector('.w-16.h-16 img').outerHTML}
-</div>
-<div>
-<h2 class="text-xl font-bold">${playerName}</h2>
-<p class="text-white text-opacity-90">${playerPosition} • ${playerTeam}</p>
-<div class="flex items-center mt-1">
-<div class="player-rating ${this.querySelector('.player-rating').className.includes('high') ? 'rating-high' : this.querySelector('.player-rating').className.includes('medium') ? 'rating-medium' : 'rating-low'} text-sm mr-2">
-${this.querySelector('.player-rating').textContent}
-</div>
-<span class="text-sm">Avaliação</span>
-</div>
-</div>
-</div>
-</div>
-<div class="p-4">
-<div class="grid grid-cols-3 gap-3 mb-4">
-<div class="bg-gray-50 p-3 rounded text-center">
-<div class="text-xl font-bold text-primary">${Math.floor(Math.random() * 20)}</div>
-<div class="text-xs text-gray-500">Gols</div>
-</div>
-<div class="bg-gray-50 p-3 rounded text-center">
-<div class="text-xl font-bold text-primary">${Math.floor(Math.random() * 15)}</div>
-<div class="text-xs text-gray-500">Assistências</div>
-</div>
-<div class="bg-gray-50 p-3 rounded text-center">
-<div class="text-xl font-bold text-primary">${Math.floor(Math.random() * 20) + 10}</div>
-<div class="text-xs text-gray-500">Jogos</div>
-</div>
-</div>
-<h4 class="font-semibold mb-2">Informações Pessoais</h4>
-<div class="space-y-2 mb-4">
-<div class="flex justify-between">
-<span class="text-sm text-gray-500">Idade</span>
-<span class="text-sm font-medium">${this.querySelector('h3').nextElementSibling.textContent.replace('•', '').trim()}</span>
-</div>
-<div class="flex justify-between">
-<span class="text-sm text-gray-500">Altura</span>
-<span class="text-sm font-medium">${Math.floor(Math.random() * 20) + 170} cm</span>
-</div>
-<div class="flex justify-between">
-<span class="text-sm text-gray-500">Peso</span>
-<span class="text-sm font-medium">${Math.floor(Math.random() * 15) + 65} kg</span>
-</div>
-<div class="flex justify-between">
-<span class="text-sm text-gray-500">Pé dominante</span>
-<span class="text-sm font-medium">${Math.random() > 0.7 ? 'Esquerdo' : 'Direito'}</span>
-</div>
-</div>
-<h4 class="font-semibold mb-2">Estatísticas</h4>
-<div class="space-y-3 mb-4">
-<div>
-<div class="flex justify-between mb-1">
-<span class="text-sm">Finalização</span>
-<span class="text-sm font-medium">${Math.floor(Math.random() * 30) + 70}/100</span>
-</div>
-<div class="bg-gray-200 rounded-full h-2">
-<div class="bg-primary rounded-full h-2" style="width: ${Math.floor(Math.random() * 30) + 70}%"></div>
-</div>
-</div>
-<div>
-<div class="flex justify-between mb-1">
-<span class="text-sm">Passe</span>
-<span class="text-sm font-medium">${Math.floor(Math.random() * 30) + 70}/100</span>
-</div>
-<div class="bg-gray-200 rounded-full h-2">
-<div class="bg-primary rounded-full h-2" style="width: ${Math.floor(Math.random() * 30) + 70}%"></div>
-</div>
-</div>
-<div>
-<div class="flex justify-between mb-1">
-<span class="text-sm">Físico</span>
-<span class="text-sm font-medium">${Math.floor(Math.random() * 30) + 70}/100</span>
-</div>
-<div class="bg-gray-200 rounded-full h-2">
-<div class="bg-primary rounded-full h-2" style="width: ${Math.floor(Math.random() * 30) + 70}%"></div>
-</div>
-</div>
-<div>
-<div class="flex justify-between mb-1">
-<span class="text-sm">Defesa</span>
-<span class="text-sm font-medium">${Math.floor(Math.random() * 30) + 70}/100</span>
-</div>
-<div class="bg-gray-200 rounded-full h-2">
-<div class="bg-primary rounded-full h-2" style="width: ${Math.floor(Math.random() * 30) + 70}%"></div>
-</div>
-</div>
-</div>
-<button class="w-full py-3 bg-primary text-white rounded !rounded-button font-medium">Ver histórico completo</button>
-</div>
-</div>
-`;
-document.body.appendChild(modal);
-modal.querySelector('.close-modal').addEventListener('click', function() {
-document.body.removeChild(modal);
-});
-modal.addEventListener('click', function(e) {
-if (e.target === modal) {
-document.body.removeChild(modal);
-}
-});
-});
-});
-});
-</script>
-<script id="search-handler">
-document.addEventListener('DOMContentLoaded', function() {
-const searchInput = document.querySelector('input[type="text"]');
-const playerCards = document.querySelectorAll('.bg-white.rounded.card-shadow.p-3.relative');
-searchInput.addEventListener('input', function() {
-const searchTerm = this.value.toLowerCase();
-playerCards.forEach(card => {
-const playerName = card.querySelector('h3').textContent.toLowerCase();
-const playerPosition = card.querySelector('p.text-sm.text-primary').textContent.toLowerCase();
-const playerTeam = card.querySelector('.flex.items-center.mt-1 span').textContent.toLowerCase();
-if (playerName.includes(searchTerm) || playerPosition.includes(searchTerm) || playerTeam.includes(searchTerm)) {
-card.style.display = 'block';
-} else {
-card.style.display = 'none';
-}
-});
-});
-});
-</script>
-<script id="tab-bar-handler">
-document.addEventListener('DOMContentLoaded', function() {
-const tabItems = document.querySelectorAll('.grid-cols-5 > a, .grid-cols-5 > div');
-tabItems.forEach(item => {
+const tabItems = document.querySelectorAll('.grid-cols-5 > div, .grid-cols-5 > a');
+tabItems.forEach((item, index) => {
 item.addEventListener('click', function() {
-// Remove active class from all items
+// Remover classe ativa de todos
 tabItems.forEach(tab => {
 tab.classList.remove('text-primary');
 tab.classList.add('text-gray-500');
-// Change icon from fill to line
+// Trocar ícones de fill para line
 const icon = tab.querySelector('i');
 if (icon) {
 icon.className = icon.className.replace('-fill', '-line');
 }
 });
-// Add active class to clicked item
+// Adicionar classe ativa ao item clicado
 this.classList.remove('text-gray-500');
 this.classList.add('text-primary');
-// Change icon from line to fill
+// Trocar ícone de line para fill
 const icon = this.querySelector('i');
 if (icon) {
 icon.className = icon.className.replace('-line', '-fill');
@@ -683,181 +1038,59 @@ icon.className = icon.className.replace('-line', '-fill');
 });
 });
 </script>
-<script id="fab-handler">
+<script id="filter-handler">
 document.addEventListener('DOMContentLoaded', function() {
-const fab = document.querySelector('.fixed.bottom-20.right-4 button');
-fab.addEventListener('click', function() {
-const modal = document.createElement('div');
-modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
-modal.innerHTML = `
-<div class="bg-white rounded-lg w-4/5 p-4">
-<div class="flex justify-between items-center mb-4">
-<h3 class="font-semibold text-lg">O que deseja fazer?</h3>
-<button class="close-modal w-8 h-8 flex items-center justify-center">
-<i class="ri-close-line ri-lg"></i>
-</button>
-</div>
-<div class="space-y-3">
-<a href="https://readdy.ai/home/71ead73c-4549-4989-b0a8-39af82fc54b4/485abad8-012d-44ac-b5dd-14222ccc5d18" data-readdy="true" class="w-full">
-<button class="w-full py-3 bg-primary text-white rounded !rounded-button flex items-center justify-center">
-<i class="ri-user-search-line mr-2"></i>
-<span>Buscar Jogador</span>
-</button>
-</a>
-<a href="https://readdy.ai/home/71ead73c-4549-4989-b0a8-39af82fc54b4/cd324aab-2d9b-46a0-86e6-6e82ea68849d" data-readdy="true" class="w-full">
-<button class="w-full py-3 bg-white border border-gray-200 text-gray-700 rounded !rounded-button flex items-center justify-center">
-<i class="ri-user-add-line mr-2"></i>
-<span>Cadastrar Jogador</span>
-</button>
-</a>
-<button class="w-full py-3 bg-white border border-gray-200 text-gray-700 rounded !rounded-button flex items-center justify-center">
-<i class="ri-file-chart-line mr-2"></i>
-<span>Relatório de Desempenho</span>
-</button>
-</div>
-</div>
-`;
-document.body.appendChild(modal);
-modal.querySelector('.close-modal').addEventListener('click', function() {
-document.body.removeChild(modal);
+// Manipulador para filtros de liga
+const leagueButtons = document.querySelectorAll('button.rounded-full');
+leagueButtons.forEach(button => {
+if (!button.parentElement.classList.contains('flex.overflow-x-auto')) {
+button.addEventListener('click', function() {
+const parentGroup = this.parentElement.querySelectorAll('button');
+parentGroup.forEach(btn => {
+btn.classList.remove('bg-primary', 'text-white');
+btn.classList.add('bg-gray-100', 'text-gray-600');
 });
-modal.addEventListener('click', function(e) {
-if (e.target === modal) {
-document.body.removeChild(modal);
+this.classList.remove('bg-gray-100', 'text-gray-600');
+this.classList.add('bg-primary', 'text-white');
+});
+}
+});
+});
+</script>
+<script id="details-handler">
+document.addEventListener('DOMContentLoaded', function() {
+// Manipulador para expandir/retrair detalhes
+const toggleButtons = document.querySelectorAll('.toggle-details');
+toggleButtons.forEach(button => {
+button.addEventListener('click', function() {
+const targetId = this.getAttribute('data-target');
+const detailsElement = document.getElementById(targetId);
+if (detailsElement.classList.contains('hidden')) {
+detailsElement.classList.remove('hidden');
+this.innerHTML = 'Ocultar detalhes <i class="ri-arrow-up-s-line ml-1"></i>';
+} else {
+detailsElement.classList.add('hidden');
+this.innerHTML = 'Ver detalhes <i class="ri-arrow-down-s-line ml-1"></i>';
 }
 });
 });
 });
 </script>
-<script id="filter-modal-handler">
+<script id="team-filter-handler">
 document.addEventListener('DOMContentLoaded', function() {
-const filterButton = document.querySelector('nav .w-8.h-8.flex.items-center.justify-center:last-child');
-filterButton.addEventListener('click', function() {
-const modal = document.createElement('div');
-modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
-modal.innerHTML = `
-<div class="bg-white rounded-lg w-11/12 max-h-[80vh] overflow-y-auto">
-<div class="p-4 border-b">
-<div class="flex justify-between items-center">
-<h3 class="font-semibold text-lg">Filtros</h3>
-<button class="close-modal w-8 h-8 flex items-center justify-center">
-<i class="ri-close-line ri-lg"></i>
-</button>
-</div>
-</div>
-<div class="p-4">
-<h4 class="font-medium mb-2">Posição</h4>
-<div class="flex flex-wrap gap-2 mb-4">
-<button class="bg-primary text-white px-3 py-1.5 rounded-full text-sm font-medium !rounded-button">Todos</button>
-<button class="bg-white border border-gray-200 text-gray-700 px-3 py-1.5 rounded-full text-sm font-medium !rounded-button">Atacantes</button>
-<button class="bg-white border border-gray-200 text-gray-700 px-3 py-1.5 rounded-full text-sm font-medium !rounded-button">Meio-campistas</button>
-<button class="bg-white border border-gray-200 text-gray-700 px-3 py-1.5 rounded-full text-sm font-medium !rounded-button">Defensores</button>
-<button class="bg-white border border-gray-200 text-gray-700 px-3 py-1.5 rounded-full text-sm font-medium !rounded-button">Goleiros</button>
-</div>
-<h4 class="font-medium mb-2">Time</h4>
-<div class="flex flex-wrap gap-2 mb-4">
-<button class="bg-primary text-white px-3 py-1.5 rounded-full text-sm font-medium !rounded-button">Todos</button>
-<button class="bg-white border border-gray-200 text-gray-700 px-3 py-1.5 rounded-full text-sm font-medium !rounded-button flex items-center">
-<div class="w-4 h-4 bg-gray-100 rounded-full overflow-hidden mr-1.5">
-<img src="https://readdy.ai/api/search-image?query=soccer%2520team%2520logo%252C%2520shield%2520design%252C%2520green%2520and%2520yellow%2520colors%252C%2520minimalist%252C%2520professional%252C%2520isolated%2520on%2520white%2520background&width=50&height=50&seq=12&orientation=squarish" alt="Palmeiras FC" class="w-full h-full object-cover">
-</div>
-<span>Palmeiras FC</span>
-</button>
-<button class="bg-white border border-gray-200 text-gray-700 px-3 py-1.5 rounded-full text-sm font-medium !rounded-button flex items-center">
-<div class="w-4 h-4 bg-gray-100 rounded-full overflow-hidden mr-1.5">
-<img src="https://readdy.ai/api/search-image?query=soccer%2520team%2520logo%252C%2520shield%2520design%252C%2520blue%2520and%2520white%2520colors%252C%2520minimalist%252C%2520professional%252C%2520isolated%2520on%2520white%2520background&width=50&height=50&seq=13&orientation=squarish" alt="Cruzeiro EC" class="w-full h-full object-cover">
-</div>
-<span>Cruzeiro EC</span>
-</button>
-<button class="bg-white border border-gray-200 text-gray-700 px-3 py-1.5 rounded-full text-sm font-medium !rounded-button flex items-center">
-<div class="w-4 h-4 bg-gray-100 rounded-full overflow-hidden mr-1.5">
-<img src="https://readdy.ai/api/search-image?query=soccer%2520team%2520logo%252C%2520shield%2520design%252C%2520red%2520and%2520black%2520colors%252C%2520minimalist%252C%2520professional%252C%2520isolated%2520on%2520white%2520background&width=50&height=50&seq=14&orientation=squarish" alt="Estrela FC" class="w-full h-full object-cover">
-</div>
-<span>Estrela FC</span>
-</button>
-</div>
-<h4 class="font-medium mb-2">Idade</h4>
-<div class="mb-4">
-<div class="flex justify-between mb-1">
-<span class="text-sm text-gray-500">18 anos</span>
-<span class="text-sm text-gray-500">40 anos</span>
-</div>
-<input type="range" min="18" max="40" value="30" class="w-full">
-<div class="text-center mt-1">
-<span class="text-sm font-medium">Até 30 anos</span>
-</div>
-</div>
-<h4 class="font-medium mb-2">Avaliação</h4>
-<div class="mb-4">
-<div class="flex justify-between mb-1">
-<span class="text-sm text-gray-500">5.0</span>
-<span class="text-sm text-gray-500">10.0</span>
-</div>
-<input type="range" min="50" max="100" value="70" class="w-full">
-<div class="text-center mt-1">
-<span class="text-sm font-medium">Mínimo 7.0</span>
-</div>
-</div>
-<h4 class="font-medium mb-2">Estatísticas</h4>
-<div class="space-y-2 mb-4">
-<div class="flex items-center">
-<input type="checkbox" id="goals" class="mr-2">
-<label for="goals" class="text-sm">Gols (mínimo)</label>
-<input type="number" placeholder="0" class="ml-auto w-16 py-1 px-2 border border-gray-200 rounded text-sm">
-</div>
-<div class="flex items-center">
-<input type="checkbox" id="assists" class="mr-2">
-<label for="assists" class="text-sm">Assistências (mínimo)</label>
-<input type="number" placeholder="0" class="ml-auto w-16 py-1 px-2 border border-gray-200 rounded text-sm">
-</div>
-<div class="flex items-center">
-<input type="checkbox" id="minutes" class="mr-2">
-<label for="minutes" class="text-sm">Minutos jogados (mínimo)</label>
-<input type="number" placeholder="0" class="ml-auto w-16 py-1 px-2 border border-gray-200 rounded text-sm">
-</div>
-</div>
-<div class="flex space-x-2">
-<button class="flex-1 py-2.5 bg-white border border-gray-200 text-gray-700 rounded !rounded-button">Limpar</button>
-<button class="flex-1 py-2.5 bg-primary text-white rounded !rounded-button">Aplicar</button>
-</div>
-</div>
-</div>
-`;
-document.body.appendChild(modal);
-modal.querySelector('.close-modal').addEventListener('click', function() {
-document.body.removeChild(modal);
-});
-modal.addEventListener('click', function(e) {
-if (e.target === modal) {
-document.body.removeChild(modal);
-}
-});
-// Range input handlers
-const rangeInputs = modal.querySelectorAll('input[type="range"]');
-rangeInputs.forEach(input => {
-input.addEventListener('input', function() {
-const value = this.value;
-const label = this.nextElementSibling.querySelector('span');
-if (this.max === "40") {
-label.textContent = `Até ${value} anos`;
-} else {
-label.textContent = `Mínimo ${value / 10}`;
-}
-});
-});
-// Filter buttons in modal
-const filterButtons = modal.querySelectorAll('.flex.flex-wrap.gap-2 button');
-filterButtons.forEach(button => {
+// Manipulador para filtros de times
+const teamButtons = document.querySelectorAll('.flex.space-x-2 button');
+teamButtons.forEach(button => {
 button.addEventListener('click', function() {
-const parentDiv = this.parentElement;
-const buttons = parentDiv.querySelectorAll('button');
-buttons.forEach(btn => {
+teamButtons.forEach(btn => {
 btn.classList.remove('bg-primary', 'text-white');
-btn.classList.add('bg-white', 'border', 'border-gray-200', 'text-gray-700');
+btn.classList.add('bg-gray-100', 'text-gray-600');
 });
-this.classList.remove('bg-white', 'border', 'border-gray-200', 'text-gray-700');
+this.classList.remove('bg-gray-100', 'text-gray-600');
 this.classList.add('bg-primary', 'text-white');
-});
+// Aqui você implementaria a lógica para filtrar os jogos por time
+const teamName = this.textContent.trim();
+console.log(`Filtrando jogos para o time: ${teamName}`);
 });
 });
 });
